@@ -39,3 +39,6 @@
 /_yardoc/
 /doc/
 /rdoc/
+
+## RubyMine files
+/.idea
