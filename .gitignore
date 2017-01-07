@@ -45,3 +45,5 @@
 
 ## OSX Stuff
 .DS_Store
+
+.env*
