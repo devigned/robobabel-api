@@ -1,7 +1,8 @@
-module OmniauthMacros
-  def valid_github_login_setup
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.add_mock(:github, {
+require 'rails_helper'
+
+RSpec.describe User do
+  let!(:auth_hash) {
+    {
         provider: 'github',
         uid: '123545',
         info: {
@@ -26,6 +27,11 @@ module OmniauthMacros
                 bio: 'Builder of things. @buspreneurs alumni. Co-founder of cisimple. I work for @Microsoft on @Azure.'
             }
         }
-    })
+    }
+  }
+  describe '#find_or_create_user_from_auth_hash' do
+    it 'should create user if user does not exist' do
+      expect { described_class.find_or_create_user_from_auth_hash(auth_hash) }.to change{User.count}.from(0).to(1)
+    end
   end
 end

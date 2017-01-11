@@ -5,11 +5,8 @@ RSpec.describe 'Authentication' do
   describe '/auth/github/' do
     before(:each) do
       valid_github_login_setup
-      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
       Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
       get '/auth/github'
-      follow_redirect!
-      follow_redirect!
       follow_redirect!
     end
 

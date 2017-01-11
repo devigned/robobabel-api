@@ -1,7 +1,6 @@
 module AuthenticationHelper
+  include Tokens
   def authenticate_user(user)
-    @request.env['devise.mapping'] = Devise.mappings[:user]
-    @request.headers.merge! user.create_new_auth_token
-    sign_in user
+    @request.headers.merge!({'Authorization' => "Bearer #{token_from_user(user)}"})
   end
 end

@@ -1,5 +1,5 @@
 class AuthenticatedController < ApplicationController
+  include Authentication
   abstract!
-  before_action :authenticate_user!
 
 end

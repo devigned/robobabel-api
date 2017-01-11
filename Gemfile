@@ -11,10 +11,11 @@ gem 'rails',                '~> 5.0'
 gem 'puma',                 '~> 3.0'
 gem 'pg',                   '~> 0.19'
 gem 'bcrypt',               '~> 3.1'
-gem 'devise_token_auth',    '~> 0.1'
 gem 'omniauth',             '~> 1.3'
 gem 'omniauth-github',      '~> 1.1'
 gem 'rack-cors',            '~> 0.4',         :require => 'rack/cors'
+gem 'jwt'
+gem 'netaddr'
 
 group :development, :test do
   gem 'byebug', platform: :mri
