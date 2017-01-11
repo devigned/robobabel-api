@@ -7,15 +7,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails',                '~> 5.0'
-gem 'puma',                 '~> 3.0'
-gem 'pg',                   '~> 0.19'
-gem 'bcrypt',               '~> 3.1'
-gem 'omniauth',             '~> 1.3'
-gem 'omniauth-github',      '~> 1.1'
-gem 'rack-cors',            '~> 0.4',         :require => 'rack/cors'
+gem 'rails',                        '~> 5.0'
+gem 'puma',                         '~> 3.0'
+gem 'pg',                           '~> 0.19'
+gem 'bcrypt',                       '~> 3.1'
+gem 'omniauth',                     '~> 1.3'
+gem 'omniauth-github',              '~> 1.1'
+gem 'rack-cors',                    '~> 0.4',         :require => 'rack/cors'
 gem 'jwt'
 gem 'netaddr'
+gem 'active_model_serializers',     '~> 0.10'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -27,6 +28,7 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rspec-json_expectations'
 end
 
 group :development do

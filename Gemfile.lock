@@ -24,6 +24,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.10.4)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi (= 0.1.1.beta6)
     activejob (5.0.1)
       activesupport (= 5.0.1)
       globalid (>= 0.3.6)
@@ -42,6 +47,8 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
+    case_transform (0.2)
+      activesupport
     concurrent-ruby (1.0.4)
     database_cleaner (1.5.3)
     diff-lcs (1.2.5)
@@ -62,6 +69,11 @@ GEM
       activesupport (>= 4.1.0)
     hashie (3.4.6)
     i18n (0.7.0)
+    jsonapi (0.1.1.beta6)
+      jsonapi-parser (= 0.1.1.beta3)
+      jsonapi-renderer (= 0.1.1.beta1)
+    jsonapi-parser (0.1.1.beta3)
+    jsonapi-renderer (0.1.1.beta1)
     jwt (1.5.6)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -140,6 +152,7 @@ GEM
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
+    rspec-json_expectations (2.1.0)
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
@@ -178,6 +191,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10)
   bcrypt (~> 3.1)
   byebug
   database_cleaner
@@ -193,6 +207,7 @@ DEPENDENCIES
   rack-cors (~> 0.4)
   rails (~> 5.0)
   rspec
+  rspec-json_expectations
   rspec-rails
   spring
   spring-commands-rspec

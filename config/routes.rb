@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  get '/auth/:provider/callback', to: 'sessions#create'
-
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      get 'health', to: 'health#index'
+      resources :healths, only: [:index]
+      resources :users, only: [:index]
     end
   end
+
+  get '/auth/:provider/callback', to: 'sessions#create'
 
 end
