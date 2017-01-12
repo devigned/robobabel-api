@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170111233850) do
     t.boolean  "private"
     t.string   "language"
     t.string   "homepage"
+    t.boolean  "tracked"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

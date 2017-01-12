@@ -8,6 +8,7 @@ class CreateRepos < ActiveRecord::Migration[5.0]
       t.boolean :private
       t.string :language
       t.string :homepage
+      t.boolean :tracked
       t.references :user, foreign_key: true
 
       t.timestamps

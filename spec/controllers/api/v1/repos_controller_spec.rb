@@ -110,10 +110,9 @@ RSpec.describe Api::V1::ReposController do
       expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
                                                                 attributes: {
                                                                     name: 'my-super-repo',
-                                                                    url: 'https://api.github.com/repos/octocat/Hello-World',
                                                                     private: false,
-                                                                    'html-url' => 'https://github.com/octocat/Hello-World',
-                                                                    description: 'A repo where there are super codez'
+                                                                    description: 'A repo where there are super codez',
+                                                                    tracked: false
                                                                 }}])
     end
   end

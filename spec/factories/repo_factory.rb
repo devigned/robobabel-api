@@ -4,8 +4,10 @@ FactoryGirl.define do
     full_name 'devigned/my-super-repo'
     description 'A repo where there are super codez'
     private false
-    url 'https://api.github.com/repos/octocat/Hello-World'
-    html_url 'https://github.com/octocat/Hello-World'
+    github_id 1234335
+    homepage 'http://example.com'
+    language 'Ruby'
+    tracked false
     user
   end
 end
