@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :repos
 
   scope :by_provider_and_uid, -> (provider, uid) { where(provider: provider, uid: uid) }
 
@@ -17,5 +18,28 @@ class User < ApplicationRecord
       user = User.create(params)
     end
     user
+  end
+
+  def github_repos
+    authenticated = GH::DefaultStack.build(token: self.provider_token)
+    repos = []
+    GH.with(authenticated) do
+      repos = GH["users/#{self.nickname}/repos"]
+    end
+    repos
+  end
+
+  def sync_github_repos!
+    gh_repos = self.github_repos
+    ids = Set.new(self.repos.pluck(:github_id))
+
+    repos = gh_repos.to_a.map do |gh_repo|
+      unless ids.include?(gh_repo[:id])
+        Repo.new({github_id: gh_repo[:id]}.merge(gh_repo.slice([:name, :description, :full_name, :private, :url, :html_url])))
+      end
+    end.select(&:present?)
+
+    self.repos << repos
+    self.save!
   end
 end

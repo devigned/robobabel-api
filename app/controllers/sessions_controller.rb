@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_or_create_user_from_auth_hash(auth_hash)
     auth_origin = "http://localhost:8081/oauth2callback?access_token=#{token_from_user(@user)}"
+    UserGithubSyncJob.new.perform(@user.id)
     redirect_to auth_origin
   end
 

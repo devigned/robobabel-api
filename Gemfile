@@ -17,8 +17,11 @@ gem 'rack-cors',                    '~> 0.4',         :require => 'rack/cors'
 gem 'jwt'
 gem 'netaddr'
 gem 'active_model_serializers',     '~> 0.10'
+gem 'gh'
+gem 'sidekiq'
 
 group :development, :test do
+  gem 'rspec-rails'
   gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
   gem 'database_cleaner'
@@ -27,8 +30,8 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rspec-rails'
   gem 'rspec-json_expectations'
+  gem 'webmock'
 end
 
 group :development do

@@ -29,9 +29,18 @@ RSpec.describe User do
         }
     }
   }
+
   describe '#find_or_create_user_from_auth_hash' do
     it 'should create user if user does not exist' do
       expect { described_class.find_or_create_user_from_auth_hash(auth_hash) }.to change{User.count}.from(0).to(1)
     end
+  end
+
+  describe '#github_repos' do
+    it 'should make a request out to github'
+  end
+
+  describe '#sync_github_repos!' do
+    it 'should add the repos from #github_repos to the existing user.repos'
   end
 end

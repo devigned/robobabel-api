@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe 'Authentication' do
+RSpec.describe Api::V1::ReposController do
 
   let!(:repos) {
     [
@@ -97,39 +97,24 @@ RSpec.describe 'Authentication' do
     ]
   }
 
-  describe '/auth/github/' do
-    before(:each) do
-      valid_github_login_setup
-      Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-      allow_any_instance_of(User).to receive(:sync_github_repos!)
-      get '/auth/github'
-      follow_redirect!
+  describe 'authenticated' do
+    let! (:user) { create(:user) }
+    let! (:repo) { create(:repo, user: user) }
+
+    before do
+      authenticate_user(user)
     end
 
-    it 'should set user_id' do
-      expect(User.last.uid).to eq('123545')
-    end
-
-    it 'should set name' do
-      expect(User.last.name).to eq('David Justice')
+    it 'should call out to github to request the current users repos' do
+      get :index
+      expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
+                                                                attributes: {
+                                                                    name: 'my-super-repo',
+                                                                    url: 'https://api.github.com/repos/octocat/Hello-World',
+                                                                    private: false,
+                                                                    'html-url' => 'https://github.com/octocat/Hello-World',
+                                                                    description: 'A repo where there are super codez'
+                                                                }}])
     end
   end
-
-  describe '/auth/sign_in' do
-    %w(/sign_in /sign_up cancel edit).each do |path|
-      it "#{path} should 404" do
-        expect { get('/auth' + path) }.to raise_error(ActionController::RoutingError)
-      end
-    end
-
-    it 'should 404 for new session creation' do
-      expect { post('/auth/sign_in') }.to raise_error(ActionController::RoutingError)
-    end
-
-    it 'should 404 for new user registration (email registration -- only github right now)' do
-      expect { post('/auth/') }.to raise_error(ActionController::RoutingError)
-    end
-
-  end
-
 end

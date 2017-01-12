@@ -43,13 +43,18 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     arel (7.1.4)
+    backports (3.6.8)
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.0.4)
+    connection_pool (2.2.1)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
     diff-lcs (1.2.5)
     dotenv (2.1.1)
@@ -65,8 +70,16 @@ GEM
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
+    gh (0.15.0)
+      addressable (~> 2.4.0)
+      backports
+      faraday (~> 0.8)
+      multi_json (~> 1.0)
+      net-http-persistent (~> 2.9)
+      net-http-pipeline
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hashdiff (0.3.2)
     hashie (3.4.6)
     i18n (0.7.0)
     jsonapi (0.1.1.beta6)
@@ -91,6 +104,8 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    net-http-persistent (2.9.4)
+    net-http-pipeline (1.0.1)
     netaddr (1.5.1)
     nio4r (1.2.1)
     nokogiri (1.7.0)
@@ -114,6 +129,8 @@ GEM
     puma (3.6.2)
     rack (2.0.1)
     rack-cors (0.4.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.1)
@@ -143,6 +160,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redis (3.3.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -165,6 +183,12 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    safe_yaml (1.0.4)
+    sidekiq (4.2.8)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.2, >= 3.2.1)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -183,6 +207,10 @@ GEM
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    webmock (2.3.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -197,6 +225,7 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails
   factory_girl_rails
+  gh
   jwt
   listen
   netaddr
@@ -209,9 +238,11 @@ DEPENDENCIES
   rspec
   rspec-json_expectations
   rspec-rails
+  sidekiq
   spring
   spring-commands-rspec
   spring-watcher-listen
+  webmock
 
 RUBY VERSION
    ruby 2.3.3p222
