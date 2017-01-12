@@ -4,5 +4,6 @@ FactoryGirl.define do
     provider 'github'
     name 'David Justice'
     nickname 'devigned'
+    provider_token '12343432442'
   end
 end

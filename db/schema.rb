@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 20170111233850) do
   end
 
   create_table "repos", force: :cascade do |t|
-    t.string   "github_id"
+    t.integer  "github_id"
     t.string   "name"
     t.string   "full_name"
     t.string   "description"
     t.boolean  "private"
-    t.string   "url"
-    t.string   "html_url"
+    t.string   "language"
+    t.string   "homepage"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

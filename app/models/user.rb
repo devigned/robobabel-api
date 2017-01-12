@@ -21,6 +21,9 @@ class User < ApplicationRecord
   end
 
   def github_repos
+    raise ArgumentError.new('provider token is empty') if self.provider_token.blank?
+    raise ArgumentError.new('nickname is empty') if self.nickname.blank?
+
     authenticated = GH::DefaultStack.build(token: self.provider_token)
     repos = []
     GH.with(authenticated) do
@@ -33,9 +36,11 @@ class User < ApplicationRecord
     gh_repos = self.github_repos
     ids = Set.new(self.repos.pluck(:github_id))
 
-    repos = gh_repos.to_a.map do |gh_repo|
-      unless ids.include?(gh_repo[:id])
-        Repo.new({github_id: gh_repo[:id]}.merge(gh_repo.slice([:name, :description, :full_name, :private, :url, :html_url])))
+    repos = gh_repos.map do |gh_repo|
+      unless ids.include?(gh_repo['id'])
+        attrs = {github_id: gh_repo['id']}.merge(gh_repo.slice('name', 'description', 'full_name', 'private',
+                                                               'language', 'homepage', 'created_at', 'updated_at'))
+        Repo.new(attrs)
       end
     end.select(&:present?)
 
