@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Api::V1::ReposController do
 
@@ -99,21 +99,50 @@ RSpec.describe Api::V1::ReposController do
 
   describe 'authenticated' do
     let! (:user) { create(:user) }
-    let! (:repo) { create(:repo, user: user) }
 
-    before do
+    before(:each) do
       authenticate_user(user)
     end
 
-    it 'should call out to github to request the current users repos' do
-      get :index
-      expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
-                                                                attributes: {
-                                                                    name: 'my-super-repo',
-                                                                    private: false,
-                                                                    description: 'A repo where there are super codez',
-                                                                    tracked: false
-                                                                }}])
+    describe '#index' do
+      let! (:repo) { create(:repo, user: user) }
+
+      it 'should call out to github to request the current users repos' do
+        get :index
+        expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
+                                                                  attributes: {
+                                                                      name: 'my-super-repo',
+                                                                      private: false,
+                                                                      description: 'A repo where there are super codez',
+                                                                      tracked: false
+                                                                  }}])
+      end
+    end
+
+    describe '#update' do
+      let! (:repo) { create(:repo, user: user) }
+
+      it 'should update tracked with patch' do
+        patch :update, params: { id: repo.id, tracked: true }
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
+                                                                 attributes: {
+                                                                     tracked: true
+                                                                 }}])
+      end
+    end
+
+    describe '#put' do
+      let! (:repo) { create(:repo, user: user) }
+
+      it 'should update tracked with patch' do
+        put :update, params: { id: repo.id, tracked: true }
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)).to include_json(data: [{type: 'repos',
+                                                                  attributes: {
+                                                                      tracked: true
+                                                                  }}])
+      end
     end
   end
 end

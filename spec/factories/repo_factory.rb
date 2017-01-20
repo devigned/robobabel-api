@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :repo do
-    name 'my-super-repo'
-    full_name 'devigned/my-super-repo'
+    name 'robo-test'
+    full_name 'devigned/robo-test'
     description 'A repo where there are super codez'
     private false
     github_id 1234335
